@@ -10,36 +10,52 @@
 <body>
   <script>
   
-  let myMap;
+let myMap;
 let canvas;
 const mappa = new Mappa('Leaflet');
 const options = {
   lat: 0,
   lng: 0,
   zoom: 4,
-  style: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+  style: ""https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
 }
 
 function setup(){
   canvas = createCanvas(640,640);
   myMap = mappa.tileMap(options); 
   myMap.overlay(canvas) 
-
-  fill(200, 100, 100);
+  
+  meteorites = loadTable('Meteorite_Landings.csv', 'csv', 'header');
   
   // Only redraw the point when the map changes and not every frame.
-  myMap.onChange(drawPoint);
+  myMap.onChange(drawMeteorites);
+  
+  fill(70, 203, 31);
+  stroke(100);
 }
 
 function draw(){
 }
 
-function drawPoint(){
+function drawMeteorites(){
   clear();
 
-  const nigeria = myMap.latLngToPixel(11.396396, 5.076543); 
-  ellipse(nigeria.x, nigeria.y, 20, 20);
+  for (let i = 0; i < meteorites.getRowCount(); i++) {
+
+  const latitude = Number(meteorites.getString(i, 'reclat'));
+  const longitude = Number(meteorites.getString(i, 'reclong'));
+    
+  if (myMap.map.getBounds().contains({lat: latitude, lng: longitude})) {
+ 
+    const pos = myMap.latLngToPixel(latitude, longitude);
+    
+    let size = meteorites.getString(i, 'mass (g)');
+      size = map(size, 558, 60000000, 1, 25) + myMap.zoom();
+      ellipse(pos.x, pos.y, size, size);
+    }
+  }
 }
+
   </script>
 </body>
 
