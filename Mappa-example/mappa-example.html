@@ -16,7 +16,7 @@ const mappa = new Mappa('Leaflet');
 const options = {
   lat: 49.26,
   lng: -123.24,
-  zoom: 3,
+  zoom: 2,
   style:"https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png"
 }
 
@@ -31,7 +31,7 @@ function setup(){
   myMap.onChange(drawMeteorites);
   
   fill(237,198,184);
-  stroke(100);
+  stroke(50);
 }
 
 function draw(){
@@ -52,7 +52,6 @@ function drawMeteorites(){
     let size = meteorites.getString(i, 'mass (g)');
       size = map(size, 558, 60000000, 1, 25) + myMap.zoom();
       ellipse(pos.x, pos.y, size, size);
-      ellipse(lat, long, size + 5, size + 5);
 
     }
   }
