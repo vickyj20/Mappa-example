@@ -52,7 +52,7 @@ function drawMeteorites(){
     let size = meteorites.getString(i, 'mass (g)');
       size = map(size, 558, 60000000, 1, 25) + myMap.zoom();
       ellipse(pos.x, pos.y, size, size);
-function star(lat, long, radius1, radius2, npoints) {
+function star(x, y, radius1, radius2, npoints) {
   var angle = TWO_PI / npoints;
   var halfAngle = angle / 2.0;
   beginShape();
