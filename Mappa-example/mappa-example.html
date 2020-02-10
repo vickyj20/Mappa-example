@@ -24,8 +24,12 @@ function setup(){
   canvas = createCanvas(640,640);
   myMap = mappa.tileMap(options); 
   myMap.overlay(canvas) 
-
-  fill(200, 100, 100);
+  
+  meteorites = loadTable('Meteorite_Landings.csv', 'csv', 'header');
+  
+  myMap.onChange(drawMeteorites);
+  
+  fill(70, 203, 31);
   
   // Only redraw the point when the map changes and not every frame.
   myMap.onChange(drawPoint);
