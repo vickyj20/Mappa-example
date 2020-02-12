@@ -16,8 +16,8 @@ const mappa = new Mappa('Leaflet');
 const options = {
   lat: 49.26,
   lng: -123.24,
-  zoom: 2.5,
-  style:"https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", 
+  zoom: 4,
+  style:"https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}", 
 }
 
 function setup(){
@@ -51,7 +51,7 @@ function drawMeteorites(){
     
     let size = meteorites.getString(i, 'mass (g)');
       size = map(size, 558, 60000000, 1, 25) + myMap.zoom();
-      triangle(pos.x, pos.y, pos.z size, size, size);
+      rect(pos.x, pos.y, size, size);
 
     }
   }
